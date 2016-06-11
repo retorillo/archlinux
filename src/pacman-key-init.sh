@@ -6,4 +6,4 @@ cd /tmp \
   && pacman-key --init \
   && pacman -R haveged --noconfirm \
   && pacman-key --populate \
-  && pacman -Sy archlinux-keyring --noconfirm
+  && pacman -S archlinux-keyring --noconfirm
