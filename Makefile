@@ -1,8 +1,9 @@
 build: src/mirrorlist
 	rm -f build.cid
 	docker build -t retorillo/archlinux .
-	docker run -it --privileged --cidfile=build.cid retorillo/archlinux bash /tmp/pacman-key-init.sh
-	cid=$$(cat build.cid) && docker commit $$cid retorillo/archlinux && docker rm $$cid && rm -f build.cid
+	docker run -itd --privileged --cidfile=build.cid retorillo/archlinux /bin/bash
+	cid=$$(cat build.cid) && docker exec $$cid /bin/bash /tmp/pacman-key-init.sh \
+		&& docker stop $$cid && docker commit $$cid retorillo/archlinux && docker rm $$cid && rm -f build.cid
 
 tmp/archlinux-latest.tar.gz:
 	wget -rl 1 -nc -nd --directory-prefix=tmp --accept=tar.gz,txt \
