@@ -13,8 +13,9 @@ tmp/archlinux-latest.tar.gz:
 
 src/archlinux.tar.xz:
 	sudo rm -rf tmp/archlinux-latest && mkdir tmp/archlinux-latest
-	tar -xpf tmp/archlinux-latest.tar.gz --strip-component=1 -C tmp/archlinux-latest
-	tar -caf src/archlinux.tar.xz -C tmp/archlinux-latest .
+	sudo tar -xpf tmp/archlinux-latest.tar.gz --strip-component=1 -C tmp/archlinux-latest \
+		--same-owner --atime-preserve --numeric-owner
+	sudo tar -caf src/archlinux.tar.xz -C tmp/archlinux-latest --numeric-owner .
 
 src/mirrorlist:
 	curl "https://www.archlinux.org/mirrorlist/?country=all&protocol=http&protocol=https&ip_version=4&ip_version=6&use_mirror_status=on" \
